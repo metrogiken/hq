@@ -3,6 +3,7 @@ package server
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -87,6 +88,29 @@ func (d *Dispatcher) work(job *structs.Job) {
 	defer func() {
 		d.logger.Infof("job: %d finished working", job.ID)
 		d.logger.Debugf("job: %d closing", job.ID)
+
+		if g.Config.JobFinishedNotificationAddr != "" {
+			// 終了を通知
+			j, e := g.Store.GetJob(job.ID)
+			if e != nil {
+				return
+			}
+
+			b, e := json.Marshal(j)
+			if e != nil {
+				d.logger.Error("notification: failed to marshal json")
+				return
+			}
+			reader := bytes.NewReader(b)
+
+			_, e = http.Post(g.Config.JobFinishedNotificationAddr, "application/json", reader)
+
+			if e != nil {
+				d.logger.Errorf("job: %d finished working, notification error: %e", e)
+				return
+			}
+			d.logger.Infof("notification: job finished notificated to url")
+		}
 
 		// Update result status (success, failure or canceled).
 		// If the evaluator has an error, write it to the output buf.

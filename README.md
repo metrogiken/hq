@@ -136,6 +136,7 @@ job_lifetime = 2419200
 job_list_default_limit = 0
 ui = true
 ui_basename = "/ui"
+job_finished_addr = "0.0.0.0:3000"
 ```
 
 ### Parameters
@@ -168,6 +169,7 @@ ui_basename = "/ui"
 
 * `ui_basename` (string): The built-in Web UI URL. For example, if you set it `/foo`, The Web UI will be provided on the url like `http://localhost:19900/foo`. The default is `/ui`.
 
+* `job_finished_addr` (string): ジョブが終了したことを通知するエンドポイント
 ## Job
 
 Job in HQ is a JSON object as the following:

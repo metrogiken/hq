@@ -10,21 +10,22 @@ import (
 )
 
 type Config struct {
-	ServerId            uint   `toml:"server_id"`
-	LogLevelString      string `toml:"log_level"`
-	Addr                string `toml:"addr"`
-	Logfile             string `toml:"log_file"`
-	DataDir             string `toml:"data_dir"`
-	AccessLogfile       string `toml:"access_log_file"`
-	Queues              int64  `toml:"queues"`
-	Dispatchers         int64  `toml:"dispatchers"`
-	MaxWorkers          int64  `toml:"max_workers"`
-	ShutdownTimeout     int64  `toml:"shutdown_timeout"`
-	JobLifetime         int64  `toml:"job_lifetime"`
-	JobListDefaultLimit int    `toml:"job_list_default_limit"`
-	UI                  bool   `toml:"ui"`
-	UIBasename          string `toml:"ui_basename"`
-	IDEpoch             []int  `toml:"id_epoch"`
+	ServerId                    uint   `toml:"server_id"`
+	LogLevelString              string `toml:"log_level"`
+	Addr                        string `toml:"addr"`
+	Logfile                     string `toml:"log_file"`
+	DataDir                     string `toml:"data_dir"`
+	AccessLogfile               string `toml:"access_log_file"`
+	Queues                      int64  `toml:"queues"`
+	Dispatchers                 int64  `toml:"dispatchers"`
+	MaxWorkers                  int64  `toml:"max_workers"`
+	ShutdownTimeout             int64  `toml:"shutdown_timeout"`
+	JobLifetime                 int64  `toml:"job_lifetime"`
+	JobListDefaultLimit         int    `toml:"job_list_default_limit"`
+	UI                          bool   `toml:"ui"`
+	UIBasename                  string `toml:"ui_basename"`
+	IDEpoch                     []int  `toml:"id_epoch"`
+	JobFinishedNotificationAddr string `toml:"job_finished_addr"`
 }
 
 func NewConfig() *Config {
